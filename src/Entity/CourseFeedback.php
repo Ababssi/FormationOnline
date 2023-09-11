@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\CourseFeedbackRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CourseFeedbackRepository::class)]
+#[ApiResource]
 class CourseFeedback
 {
     #[ORM\Id]
@@ -17,7 +19,7 @@ class CourseFeedback
 
     #[ORM\ManyToOne(inversedBy: 'courseFeedbacks')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'courseFeedbacks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -26,7 +28,7 @@ class CourseFeedback
     #[ORM\Column(nullable: true)]
     private ?int $stars = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(type: 'string',length: 255, nullable: true)]
     private ?string $comment = null;
 
     #[ORM\Column]
@@ -40,12 +42,12 @@ class CourseFeedback
         return $this->id;
     }
 
-    public function getUser(): ?Users
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Users $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

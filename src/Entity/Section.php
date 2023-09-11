@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\SectionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SectionRepository::class)]
+#[ApiResource]
 class Section
 {
     #[ORM\Id]
@@ -18,7 +20,7 @@ class Section
     #[ORM\ManyToOne(inversedBy: 'sections')]
     private ?Course $course = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(type: "string", length: 255)]
     private ?string $title = null;
 
     #[ORM\Column]

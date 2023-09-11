@@ -7,6 +7,7 @@ namespace App\Entity\Enum;
 enum UserStatus: string
 {
     case ACTIVE = 'ACTIVE';
+    case ACTIVE_NEED_COMPLETE_PROFIL = 'ACTIVE_NEED_COMPLETE_PROFIL';
     case INACTIVE = 'INACTIVE';
     case DELETED = 'DELETED';
     case BLOCKED = 'BLOCKED';

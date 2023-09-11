@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\StudentResponseRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StudentResponseRepository::class)]
+#[ApiResource]
 class StudentResponse
 {
     #[ORM\Id]
@@ -19,7 +21,7 @@ class StudentResponse
 
     #[ORM\ManyToOne(inversedBy: 'studentResponses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user = null;
+    private ?User $user = null;
 
     #[ORM\Column]
     private array $studentQuestionsAnswers = [];
@@ -47,12 +49,12 @@ class StudentResponse
         return $this;
     }
 
-    public function getUser(): ?Users
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Users $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

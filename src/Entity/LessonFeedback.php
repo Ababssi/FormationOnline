@@ -2,11 +2,13 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\LessonFeedbackRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: LessonFeedbackRepository::class)]
+#[ApiResource]
 class LessonFeedback
 {
     #[ORM\Id]
@@ -16,7 +18,7 @@ class LessonFeedback
 
     #[ORM\ManyToOne(inversedBy: 'lessonFeedbacks')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'lessonFeedbacks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -39,12 +41,12 @@ class LessonFeedback
         return $this->id;
     }
 
-    public function getUser(): ?Users
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Users $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

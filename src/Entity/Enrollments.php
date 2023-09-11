@@ -2,10 +2,12 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Metadata\ApiResource;
 use App\Repository\EnrollmentsRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EnrollmentsRepository::class)]
+#[ApiResource]
 class Enrollments
 {
     #[ORM\Id]
@@ -19,9 +21,9 @@ class Enrollments
 
     #[ORM\ManyToOne(inversedBy: 'enrollments')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Users $user = null;
+    private ?User $user = null;
 
-    #[ORM\Column(type: 255)]
+    #[ORM\Column(type: 'string', length: 255)]
     private ?string $status = null;
 
     #[ORM\Column]
@@ -47,12 +49,12 @@ class Enrollments
         return $this;
     }
 
-    public function getUser(): ?Users
+    public function getUser(): ?User
     {
         return $this->user;
     }
 
-    public function setUser(?Users $user): static
+    public function setUser(?User $user): static
     {
         $this->user = $user;
 

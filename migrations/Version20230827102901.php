@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230810171438 extends AbstractMigration
+final class Version20230827102901 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -25,7 +25,7 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE course_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE course_category_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE course_feedback_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE SEQUENCE enrollements_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE enrollments_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE instructor_course_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE instructor_feedback_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE lesson_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -36,14 +36,14 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE student_response_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE student_result_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "users_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE category (id INT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE category (id INT NOT NULL, title VARCHAR(255) NOT NULL, description TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN category.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN category.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE certificate (id INT NOT NULL, user_id INT NOT NULL, course_id INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_219CDA4AA76ED395 ON certificate (user_id)');
         $this->addSql('CREATE INDEX IDX_219CDA4A591CC992 ON certificate (course_id)');
         $this->addSql('COMMENT ON COLUMN certificate.created_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE course (id INT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) DEFAULT NULL, price NUMERIC(10, 2) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE course (id INT NOT NULL, title VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, price NUMERIC(10, 2) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('COMMENT ON COLUMN course.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN course.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE course_category (id INT NOT NULL, course_id INT NOT NULL, category_id INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
@@ -56,11 +56,11 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_7B9D290E591CC992 ON course_feedback (course_id)');
         $this->addSql('COMMENT ON COLUMN course_feedback.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN course_feedback.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE enrollements (id INT NOT NULL, course_id INT NOT NULL, user_id INT NOT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_86C7B886591CC992 ON enrollements (course_id)');
-        $this->addSql('CREATE INDEX IDX_86C7B886A76ED395 ON enrollements (user_id)');
-        $this->addSql('COMMENT ON COLUMN enrollements.created_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('COMMENT ON COLUMN enrollements.updated_at IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('CREATE TABLE enrollments (id INT NOT NULL, course_id INT NOT NULL, user_id INT NOT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_CCD8C132591CC992 ON enrollments (course_id)');
+        $this->addSql('CREATE INDEX IDX_CCD8C132A76ED395 ON enrollments (user_id)');
+        $this->addSql('COMMENT ON COLUMN enrollments.created_at IS \'(DC2Type:datetime_immutable)\'');
+        $this->addSql('COMMENT ON COLUMN enrollments.updated_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('CREATE TABLE instructor_course (id INT NOT NULL, course_id INT NOT NULL, user_id INT NOT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_6926B0E5591CC992 ON instructor_course (course_id)');
         $this->addSql('CREATE INDEX IDX_6926B0E5A76ED395 ON instructor_course (user_id)');
@@ -100,7 +100,7 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_9D5C1993BA934BCD ON student_result (quizz_id)');
         $this->addSql('COMMENT ON COLUMN student_result.created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN student_result.updated_at IS \'(DC2Type:datetime_immutable)\'');
-        $this->addSql('CREATE TABLE "users" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) DEFAULT NULL, lastname VARCHAR(255) DEFAULT NULL, bio VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, status VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE "users" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, firstname VARCHAR(255) DEFAULT NULL, lastname VARCHAR(255) DEFAULT NULL, bio TEXT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, status VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_1483A5E9E7927C74 ON "users" (email)');
         $this->addSql('COMMENT ON COLUMN "users".created_at IS \'(DC2Type:datetime_immutable)\'');
         $this->addSql('COMMENT ON COLUMN "users".updated_at IS \'(DC2Type:datetime_immutable)\'');
@@ -125,8 +125,8 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('ALTER TABLE course_category ADD CONSTRAINT FK_AFF8749712469DE2 FOREIGN KEY (category_id) REFERENCES category (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE course_feedback ADD CONSTRAINT FK_7B9D290EA76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE course_feedback ADD CONSTRAINT FK_7B9D290E591CC992 FOREIGN KEY (course_id) REFERENCES course (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE enrollements ADD CONSTRAINT FK_86C7B886591CC992 FOREIGN KEY (course_id) REFERENCES course (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE enrollements ADD CONSTRAINT FK_86C7B886A76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE enrollments ADD CONSTRAINT FK_CCD8C132591CC992 FOREIGN KEY (course_id) REFERENCES course (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE enrollments ADD CONSTRAINT FK_CCD8C132A76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE instructor_course ADD CONSTRAINT FK_6926B0E5591CC992 FOREIGN KEY (course_id) REFERENCES course (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE instructor_course ADD CONSTRAINT FK_6926B0E5A76ED395 FOREIGN KEY (user_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE instructor_feedback ADD CONSTRAINT FK_D24BE6FDCB944F1A FOREIGN KEY (student_id) REFERENCES "users" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -152,7 +152,7 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('DROP SEQUENCE course_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE course_category_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE course_feedback_id_seq CASCADE');
-        $this->addSql('DROP SEQUENCE enrollements_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE enrollments_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE instructor_course_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE instructor_feedback_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE lesson_id_seq CASCADE');
@@ -169,8 +169,8 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('ALTER TABLE course_category DROP CONSTRAINT FK_AFF8749712469DE2');
         $this->addSql('ALTER TABLE course_feedback DROP CONSTRAINT FK_7B9D290EA76ED395');
         $this->addSql('ALTER TABLE course_feedback DROP CONSTRAINT FK_7B9D290E591CC992');
-        $this->addSql('ALTER TABLE enrollements DROP CONSTRAINT FK_86C7B886591CC992');
-        $this->addSql('ALTER TABLE enrollements DROP CONSTRAINT FK_86C7B886A76ED395');
+        $this->addSql('ALTER TABLE enrollments DROP CONSTRAINT FK_CCD8C132591CC992');
+        $this->addSql('ALTER TABLE enrollments DROP CONSTRAINT FK_CCD8C132A76ED395');
         $this->addSql('ALTER TABLE instructor_course DROP CONSTRAINT FK_6926B0E5591CC992');
         $this->addSql('ALTER TABLE instructor_course DROP CONSTRAINT FK_6926B0E5A76ED395');
         $this->addSql('ALTER TABLE instructor_feedback DROP CONSTRAINT FK_D24BE6FDCB944F1A');
@@ -190,7 +190,7 @@ final class Version20230810171438 extends AbstractMigration
         $this->addSql('DROP TABLE course');
         $this->addSql('DROP TABLE course_category');
         $this->addSql('DROP TABLE course_feedback');
-        $this->addSql('DROP TABLE enrollements');
+        $this->addSql('DROP TABLE enrollments');
         $this->addSql('DROP TABLE instructor_course');
         $this->addSql('DROP TABLE instructor_feedback');
         $this->addSql('DROP TABLE lesson');
